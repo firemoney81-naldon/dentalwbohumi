@@ -1,23 +1,722 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+  <style>
+        /* 기본 스타일 초기화 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 3px solid #e0e6f0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        header h1 {
+            color: #1a237e;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+        }
+        header p {
+            color: #6c757d;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        /* 내비게이션 스타일 */
+        nav {
+            margin-top: 25px;
+            border-top: 1px dashed #cfd8dc;
+            padding-top: 15px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        nav li a {
+            text-decoration: none;
+            color: #3f51b5;
+            font-weight: 600;
+            font-size: 0.95em;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+        nav li a:hover {
+            background-color: #e8eaf6;
+            color: #1a237e;
+        }
+
+        /* 메인 콘텐츠 영역 */
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 섹션 스타일 */
+        section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        section:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 섹션 제목 스타일 */
+        h2 {
+            color: #1a237e;
+            font-size: 1.8em;
+            margin-top: 0;
+            border-left: 5px solid #3f51b5;
+            padding-left: 15px;
+            line-height: 1.4;
+        }
+        h3 {
+            color: #3f51b5;
+            font-size: 1.4em;
+            margin-top: 25px;
+            border-bottom: 2px solid #e8eaf6;
+            padding-bottom: 5px;
+        }
+
+        /* 텍스트 스타일 */
+        p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+        ul, ol {
+            margin-left: 25px;
+            line-height: 1.7;
+        }
+        strong {
+            font-weight: 700;
+            color: #1a237e;
+        }
+        .highlight {
+            background-color: #e8eaf6;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* 테이블 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95em;
+            background-color: #fcfcfc;
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #cfd8dc;
+            text-align: left;
+        }
+        th {
+            background-color: #e8eaf6;
+            color: #1a237e;
+            font-weight: 700;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* 인용/경고 박스 스타일 */
+        .info-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+        .alert-box {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        .alert-box strong {
+            color: #ff9800;
+        }
+
+        /* CTA 버튼 스타일 */
+        .cta-button {
+            display: block;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px 30px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .cta-button:hover {
+            background-color: #388E3C;
+            transform: translateY(-2px);
+        }
+
+        /* 입력 폼 스타일 */
+        .form-container {
+            background-color: #f0f4f8;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a237e;
+        }
+        .form-container select, .form-container button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #cfd8dc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            background-color: #3f51b5;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-container button:hover {
+            background-color: #303f9f;
+        }
+        .estimation-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border: 2px solid #3f51b5;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: none; /* 초기에는 숨김 */
+        }
+
+        /* FAQ 스타일 */
+        dl {
+            margin-top: 20px;
+        }
+        dt {
+            font-weight: bold;
+            color: #3f51b5;
+            margin-top: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #cfd8dc;
+            cursor: pointer; /* 클릭 가능한 요소로 표시 */
+        }
+        dd {
+            margin-left: 0;
+            padding-left: 10px;
+            border-left: 2px solid #b3e5fc;
+            margin-top: 10px;
+            display: none; /* 초기에는 숨김 */
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 푸터 스타일 */
+        footer {
+            background-color: #263238;
+            color: #b0c4de;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+            border-top: 5px solid #1a237e;
+        }
+        footer a {
+            color: #b0c4de;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* 그래프 이미지 스타일 (시각적 자료) */
+        .chart-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "잇몸치료비용 핵심 가이드",
+        "description": "잇몸치료의 종류별 비용 정보, 건강보험 및 실비보험 적용 여부, 치과 선택 가이드 등 잇몸 건강에 필요한 모든 정보를 담고 있습니다.",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@type": "Article",
+                    "url": "https://www.example.com/gum-treatment-cost-2026",
+                    "name": "2026년 최신 잇몸치료비용 분석: 스케일링부터 잇몸수술까지 가격 비교",
+                    "datePublished": "2026-01-10T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치과 정보 전문가"
+                    },
+                    "headline": "2026년 최신 잇몸치료비용 분석: 스케일링부터 잇몸수술까지 가격 비교"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@type": "Article",
+                    "url": "https://www.example.com/gum-treatment-insurance",
+                    "name": "잇몸치료 실비보험 적용 기준: 내 돈 아끼는 꿀팁",
+                    "datePublished": "2026-01-05T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "보험 전문가"
+                    },
+                    "headline": "잇몸치료 실비보험 적용 기준: 내 돈 아끼는 꿀팁"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@type": "Article",
+                    "url": "https://www.example.com/gum-disease-prevention",
+                    "name": "잇몸 건강 관리 완벽 가이드: 잇몸치료 후 재발 방지법",
+                    "datePublished": "2026-01-01T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "구강 관리 전문가"
+                    },
+                    "headline": "잇몸 건강 관리 완벽 가이드: 잇몸치료 후 재발 방지법"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                    "@type": "Article",
+                    "url": "https://www.example.com/gum-treatment-cost-factors",
+                    "name": "치과마다 잇몸치료 비용이 다른 이유: 비급여 항목 완벽 해설",
+                    "datePublished": "2025-12-28T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치과 정보 전문가"
+                    },
+                    "headline": "치과마다 잇몸치료 비용이 다른 이유: 비급여 항목 완벽 해설"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                    "@type": "Article",
+                    "url": "https://www.example.com/scaling-deep-scaling-difference",
+                    "name": "스케일링과 치주소파술의 차이점: 내 잇몸 상태에 맞는 치료는?",
+                    "datePublished": "2025-12-25T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치과 의사"
+                    },
+                    "headline": "스케일링과 치주소파술의 차이점: 내 잇몸 상태에 맞는 치료는?"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                    "@type": "Article",
+                    "url": "https://www.example.com/gum-surgery-post-care",
+                    "name": "잇몸수술 후 관리 및 주의사항: 통증과 회복 기간 줄이는 방법",
+                    "datePublished": "2025-12-20T00:00:00+09:00",
+                    "author": {
+                        "@type": "Person",
+                        "name": "치과 정보 전문가"
+                    },
+                    "headline": "잇몸수술 후 관리 및 주의사항: 통증과 회복 기간 줄이는 방법"
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>잇몸치료비용 완벽 분석: 2026년 보험 적용 기준 및 최신 정보 총정리</h1>
+        <p>치과 잇몸치료 종류별 예상 가격부터 건강보험, 실비보험 적용 여부까지, 현명한 치료를 위한 모든 정보!</p>
+        <nav>
+            <ul>
+                <li><a href="#intro">잇몸치료의 중요성</a></li>
+                <li><a href="#cost1">잇몸치료 비용 구조</a></li>
+                <li><a href="#cost2">치료 종류별 예상 가격</a></li>
+                <li><a href="#insurance">보험 적용 가이드</a></li>
+                <li><a href="#cost_calc">비용 예상 계산기</a></li>
+                <li><a href="#faq">자주 묻는 질문 (FAQ)</a></li>
+                <li><a href="#related_keywords">관련 키워드</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="intro">
+            <h2>1. 잇몸치료비용, 왜 궁금할까요? 잇몸 건강의 중요성 이해하기</h2>
+            <p><strong>잇몸치료비용</strong>은 많은 분들이 궁금해하는 주제입니다. 잇몸병(치주염)은 초기에 증상이 경미하여 방치하기 쉽지만, 진행될수록 잇몸뼈를 녹여 치아 상실로 이어질 수 있는 무서운 질환입니다. 잇몸치료는 단순히 통증을 없애는 것을 넘어, 치아를 건강하게 유지하고 전신 건강까지 지키는 중요한 과정입니다. 따라서 잇몸치료의 <strong>평균 금액</strong>과 <strong>예상 비용</strong>을 미리 파악하고, 내게 맞는 <strong>저렴한 곳</strong>을 찾는 것이 중요합니다.</p>
+            <p>2026년 현재, 치과 치료 기술의 발전으로 잇몸치료의 방법은 더욱 다양해지고 있습니다. 초기 단계의 <span class="highlight">스케일링</span>부터 중증 단계의 <span class="highlight">치주소파술</span>, 그리고 심화된 잇몸병을 위한 <span class="highlight">잇몸수술(치은절제술, 치주판막술)</span>까지, 환자의 상태에 따라 적절한 치료법이 달라집니다. 본 가이드에서는 이러한 치료들의 <strong>가격</strong> 및 <strong>견적</strong>을 상세히 비교하고, <strong>실비보험</strong>이나 <strong>건강보험</strong>이 어떻게 적용되는지 자세히 알아보겠습니다.</p>
+            <div class="info-box">
+                <p><strong>잇몸 건강 자가진단 체크리스트:</strong></p>
+                <ul>
+                    <li>양치질 할 때 잇몸에서 피가 난다.</li>
+                    <li>잇몸이 자주 붓고 붉은색을 띤다.</li>
+                    <li>입 냄새가 심해졌다.</li>
+                    <li>잇몸이 내려앉아 치아가 길어 보이거나 시린 느낌이 든다.</li>
+                    <li>치아 사이가 벌어지거나 치아가 흔들린다.</li>
+                </ul>
+                <p>위 증상 중 2가지 이상 해당된다면 즉시 치과 검진을 받아야 합니다.</p>
+            </div>
+        </section>
+
+        <section id="cost1">
+            <h2>2. 잇몸치료비용의 구성 요소와 보험 적용 기준 (2026년 최신 정보)</h2>
+            <p>잇몸치료 <strong>비용</strong>은 치료의 종류와 단계, 그리고 가장 중요한 <span class="highlight">보험 적용 여부(급여/비급여)</span>에 따라 천차만별입니다. 특히 2026년 기준, 국민건강보험공단은 잇몸치료의 급여 적용 범위를 확대하려는 움직임을 보이고 있어, <span class="highlight">잇몸치료 가격 평균</span>이 이전보다 낮아질 것으로 예상됩니다.</p>
+            <h3>2.1. 잇몸치료의 단계별 접근법</h3>
+            <p>잇몸치료는 일반적으로 3단계로 진행되며, 각 단계에 따라 <strong>비용</strong>과 <strong>치료 방법</strong>이 달라집니다.</p>
+            <ol>
+                <li><strong>1단계: 초기 치료 (스케일링)</strong>
+                    <p>잇몸병 초기 단계로, 잇몸 위쪽의 치태(플라크)와 치석을 제거하는 치료입니다. 국민건강보험이 적용되어 <strong>가격</strong> 부담이 적습니다. 보통 1년에 한 번 급여 적용을 받을 수 있으며, 2026년에도 이 기준이 유지될 예정입니다.</p></li>
+                <li><strong>2단계: 심화 치료 (치주소파술, 근관활택술)</strong>
+                    <p>잇몸 아래쪽(잇몸 주머니)으로 파고든 치석을 제거하는 치료입니다. 잇몸이 붓고 피가 나는 <span class="highlight">치은염</span>을 넘어 <span class="highlight">치주염</span>으로 진행된 경우에 필요합니다. 이 단계부터는 치아당 <strong>비용</strong>이 발생하며, 치아의 개수에 따라 총 <strong>견적</strong>이 달라집니다.</p></li>
+                <li><strong>3단계: 외과적 치료 (잇몸수술)</strong>
+                    <p>치주염이 심각하여 잇몸뼈까지 녹아내린 경우, 잇몸을 절개하여 눈으로 직접 보면서 치석을 제거하고 잇몸뼈를 다듬거나 <strong>잇몸뼈 이식술</strong>을 시행하는 단계입니다. <strong>비보험 항목</strong>이 많아 <strong>비용</strong>이 가장 높으며, 잇몸치료 <strong>장점</strong>(치아 보존)에도 불구하고 환자에게 부담이 될 수 있습니다.</p></li>
+            </ol>
+            <div class="alert-box">
+                <strong>주의: 치과마다 비용 차이 발생 요인</strong>
+                <p>잇몸치료는 <strong style="color: #ff9800;">급여(보험) 항목</strong>과 <strong style="color: #ff9800;">비급여(비보험) 항목</strong>이 혼재되어 있습니다. 스케일링, 치주소파술 등은 건강보험 적용이 되지만, 레이저 치료, 잇몸뼈 이식재, 특수 약제 등은 비급여 항목으로 분류될 수 있습니다. 비급여 항목은 치과마다 <strong>가격</strong>을 자유롭게 정할 수 있어 <strong>견적</strong> 차이가 발생하므로, 반드시 사전에 확인해야 합니다.</p>
+            </div>
+        </section>
+
+        <section id="cost2">
+            <h2>3. 치료 종류별 잇몸치료 예상 가격 및 상세 비교 (2026년 기준)</h2>
+            <p><strong>잇몸치료</strong>의 <strong>평균 금액</strong>은 환자의 상태, 치아의 개수, 비급여 항목 여부에 따라 크게 달라지므로, 아래 표는 참고용으로만 활용해 주십시오. 2026년 현재 기준으로 일반적인 <strong>예상 비용</strong>을 제시합니다.</p>
+
+            <h3>3.1. 스케일링 (치석 제거) 비용</h3>
+            <p>가장 기본적인 잇몸치료입니다. 2026년에도 <span class="highlight">만 19세 이상 성인이라면 1년에 1회 건강보험 적용</span>이 가능합니다. 잇몸 건강이 양호하거나 초기 단계의 치은염 환자에게 적합합니다.</p>
+            <div class="chart-container">
+                <img src="https://via.placeholder.com/600x200?text=2026+Scaling+Cost+Chart" alt="2026년 스케일링 비용 차트">
+                <p><em>[그림 1] 2026년 스케일링 평균 비용 (건강보험 적용 시)</em></p>
+            </div>
+            <ul>
+                <li><strong>건강보험 적용 시 (1회당) 예상 비용:</strong> 15,000원 ~ 25,000원 내외</li>
+                <li><strong>비보험 적용 시 예상 비용:</strong> 50,000원 ~ 80,000원 내외</li>
+                <li><strong>장점:</strong> 저렴한 비용으로 잇몸병 예방 가능.</li>
+                <li><strong>단점:</strong> 잇몸 속 치석까지 제거는 불가능함.</li>
+            </ul>
+
+            <h3>3.2. 치주소파술 (잇몸 속 청소) 비용</h3>
+            <p>잇몸병이 중등도로 진행되어 잇몸 아래쪽(치주낭) 깊숙이 치석이 쌓인 경우 시행하는 치료입니다. 마취 후 치과 기구를 이용해 잇몸 속의 치석을 긁어내는(Curettage) 방식입니다. 잇몸을 절개하지 않고 진행하는 비외과적 치료입니다.</p>
+            <p>치주소파술은 <span class="highlight">치아 단위 또는 치아군 단위(6개 치아 기준)</span>로 비용이 산정됩니다. 일반적으로 건강보험 적용이 되지만, 치아의 개수와 치료 난이도에 따라 총 <strong>견적</strong>이 달라집니다.</p>
+            <ul>
+                <li><strong>건강보험 적용 시 예상 비용:</strong> 치아 6개당 약 1만원 ~ 2만원 내외 (본인 부담금)</li>
+                <li><strong>치료 횟수:</strong> 보통 4~6회에 걸쳐 전체 치아를 나누어 치료합니다.</li>
+                <li><strong>총 예상 금액:</strong> 전체 치아 치료 시 약 5만원 ~ 10만원 내외 (본인 부담금 기준)</li>
+            </ul>
+
+            <h3>3.3. 잇몸수술 (치주판막술) 비용 및 잇몸뼈 이식술</h3>
+            <p>치주염이 심해져 잇몸뼈가 2/3 이상 손상된 경우 고려하는 외과적 수술입니다. 잇몸을 열고 잇몸뼈를 다듬거나, 손상된 잇몸뼈를 재생시키기 위한 <strong>잇몸뼈 이식술</strong>이 동반될 수 있습니다. 잇몸수술은 건강보험 적용이 되지만, 잇몸뼈 이식재 등은 비급여 항목인 경우가 많아 <strong>비용</strong>이 크게 상승합니다.</p>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>치료 종류</th>
+                            <th>건강보험 적용 여부</th>
+                            <th>2026년 예상 비용 (치아당)</th>
+                            <th>주요 특징</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>치주판막술 (잇몸수술)</strong></td>
+                            <td>일부 적용 (수술 자체)</td>
+                            <td>10만원 ~ 20만원 내외 (비급여 항목 포함 시 상승)</td>
+                            <td>잇몸을 절개하여 시야 확보 후 치석 제거.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>잇몸뼈 이식술</strong></td>
+                            <td>비급여 항목 (이식재)</td>
+                            <td>30만원 ~ 50만원 이상 (이식재 종류 및 양에 따라 다름)</td>
+                            <td>녹아내린 잇몸뼈 재생을 위한 추가 수술.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>레이저 잇몸치료</strong></td>
+                            <td>비급여 항목</td>
+                            <td>10만원 ~ 20만원 내외 (치아당)</td>
+                            <td>통증을 줄이는 장점이 있으나 비용은 비쌈.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>참고:</strong> 위 표에서 제시된 <strong>비용</strong>은 순수 치료비 외에 약값, 마취비 등이 추가될 수 있습니다. 따라서 <strong>견적</strong>을 낼 때 전체 <strong>예상 금액</strong>을 꼼꼼히 확인해야 합니다.</p>
+
+            <h3>3.4. 잇몸치료 장단점 비교</h3>
+            <p>각 치료법의 <strong>장점</strong>과 <strong>단점</strong>을 파악하여 잇몸 건강 상태에 맞는 현명한 선택을 해야 합니다.</p>
+            <ul>
+                <li><strong>스케일링:</strong> <span class="highlight">장점:</span> 보험 적용으로 저렴하고 간편함. <span class="highlight">단점:</span> 중증 치주염에는 효과가 없음.</li>
+                <li><strong>치주소파술:</strong> <span class="highlight">장점:</span> 잇몸병 중기까지 효과적으로 치료 가능. <span class="highlight">단점:</span> 치료 횟수가 많고, 통증이 따를 수 있음.</li>
+                <li><strong>잇몸수술:</strong> <span class="highlight">장점:</span> 심각한 잇몸병을 근본적으로 해결, 치아 보존에 유리. <span class="highlight">단점:</span> 회복 기간이 길고, <strong>비용</strong> 부담이 크며, 잇몸 퇴축 등의 부작용 가능성 있음.</li>
+            </ul>
+        </section>
+
+        <section id="insurance">
+            <h2>4. 잇몸치료비용과 보험 적용: 건강보험 vs 실비보험 완벽 해부</h2>
+            <p>잇몸치료 <strong>비용</strong>에서 보험 적용은 환자 부담을 크게 줄일 수 있는 핵심 요소입니다. <strong>건강보험</strong>과 <strong>실비보험</strong>의 적용 범위와 기준을 명확히 이해해야 합니다.</p>
+
+            <h3>4.1. 건강보험(국민건강보험) 적용 기준</h3>
+            <p>국민건강보험은 급여 항목에 대해 잇몸치료 <strong>비용</strong>을 지원합니다. 2026년 기준, 건강보험이 적용되는 주요 잇몸치료 항목은 다음과 같습니다.</p>
+            <ul>
+                <li><strong>스케일링:</strong> 1년에 1회 급여 적용.</li>
+                <li><strong>치주소파술:</strong> 잇몸병 진단 시 치아당 급여 적용.</li>
+                <li><strong>잇몸수술(치주판막술):</strong> 잇몸병이 심한 경우 급여 적용.</li>
+                <li><strong>파노라마 X-ray 촬영:</strong> 진단 목적으로 급여 적용.</li>
+            </ul>
+            <p><strong>참고:</strong> 건강보험은 <span class="highlight">예방 목적의 미용 스케일링</span>이 아닌, <span class="highlight">잇몸병 치료 목적</span>으로 진단받아야 급여 적용이 됩니다. 또한 치과 방문 횟수가 늘어날수록 <strong>잇몸치료 가격 평균</strong>이 상승할 수 있으므로, 초기 방문 시 정확한 진단이 중요합니다.</p>
+
+            <h3>4.2. 실비보험(사립보험) 적용 여부 상세 가이드</h3>
+            <p>많은 분들이 <strong>실비보험</strong>이 잇몸치료 <strong>비용</strong>을 보장해 줄 것이라 기대하지만, 2026년 현재 기준으로 실비보험은 치과 치료에 대해 매우 제한적인 보장을 합니다.</p>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>치료 유형</th>
+                            <th>실비보험 적용 여부</th>
+                            <th>세부 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>급여 잇몸치료</strong> (스케일링, 치주소파술 등)</td>
+                            <td><strong>적용 가능</strong></td>
+                            <td>국민건강보험 급여 항목 중 <span class="highlight">본인 부담금</span>에 대해 보장. (가입 시기 및 약관에 따라 다름)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>비급여 잇몸치료</strong> (레이저 치료, 잇몸뼈 이식재 등)</td>
+                            <td><strong>적용 불가</strong></td>
+                            <td>비급여 항목은 실비보험에서 보장하지 않는 경우가 일반적입니다.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>치아우식증(충치) 치료</strong> (비급여)</td>
+                            <td><strong>적용 불가</strong></td>
+                            <td>충치 치료는 대부분 비급여 항목으로 실비보험 보장이 안 됩니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>핵심:</strong> 실비보험이 잇몸치료 <strong>비용</strong>을 보장받으려면, 해당 치료가 <span class="highlight">국민건강보험의 급여 항목</span>에 해당해야 합니다. 따라서 <strong>잇몸치료 견적</strong>을 받을 때 급여/비급여 항목을 반드시 구분하여 확인해야 합니다. <strong>치과 보험</strong>이 별도로 없다면, 실비보험만으로는 비급여 잇몸수술 <strong>비용</strong>을 충당하기 어렵습니다.</p>
+        </section>
+
+        <section id="cost_calc">
+            <h2>5. 잇몸치료 예상 비용 계산기: 내 상태에 맞는 견적 알아보기</h2>
+            <p>정확한 <strong>잇몸치료비용</strong>은 치과 진단 후에만 알 수 있지만, 대략적인 <strong>예상 금액</strong>을 파악하여 <strong>비용</strong> 부담을 줄이는 데 도움이 됩니다. 아래 간단한 계산기로 예상 견적을 확인해 보세요. (2026년 기준, 건강보험 본인 부담금 및 평균 비급여 비용 기준)</p>
+            <div class="form-container">
+                <label for="treatment_type">1. 예상 치료 종류를 선택하세요:</label>
+                <select id="treatment_type">
+                    <option value="scaling">스케일링 (초기 잇몸병)</option>
+                    <option value="curettage">치주소파술 (중등도 잇몸병)</option>
+                    <option value="surgery">잇몸수술 (심한 잇몸병, 잇몸뼈 손상)</option>
+                </select>
+
+                <label for="insurance_status">2. 건강보험 적용 여부:</label>
+                <select id="insurance_status">
+                    <option value="covered">건강보험 적용 (급여 항목)</option>
+                    <option value="uncovered">건강보험 미적용 (비급여 항목)</option>
+                </select>
+
+                <label for="tooth_count">3. 치료할 치아 개수 (개별 치주소파술/수술 시):</label>
+                <select id="tooth_count">
+                    <option value="1">1~2개</option>
+                    <option value="6">3~6개 (치아군)</option>
+                    <option value="12">7~12개 (일부 구강)</option>
+                    <option value="full_mouth">전체 치아 (전악)</option>
+                </select>
+
+                <button onclick="calculateCost()">예상 비용 확인하기</button>
+                <div id="result_area" class="estimation-result"></div>
+            </div>
+
+            <p style="text-align: center; margin-top: 20px;"><strong>[잇몸치료비용]</strong>의 <strong>평균 금액</strong>을 확인하셨다면, 이제 <strong>후기</strong>가 좋고 <strong>저렴한 곳</strong>을 찾아보세요.</p>
+        </section>
+
+        <section id="faq">
+            <h2>6. 잇몸치료비용 관련 자주 묻는 질문 (FAQ)</h2>
+            <p><strong>잇몸치료비용</strong>에 대해 고객들이 가장 많이 묻는 질문과 <strong>답변</strong>을 정리했습니다. <strong>치과</strong> 방문 전에 꼭 확인하세요.</p>
+            <dl>
+                <dt onclick="toggleAnswer(this)">Q1: 스케일링은 1년에 한 번만 무료인가요? 잇몸치료비용에 영향을 주나요?</dt>
+                <dd>A1: 네, 만 19세 이상 성인은 1년에 1회 건강보험 적용(급여)을 받을 수 있습니다. 여기서 '무료'는 본인 부담금이 적다는 의미입니다. 잇몸치료비용은 스케일링만으로 해결될 수 있는 초기 잇몸병인지, 스케일링 외에 추가적인 치주소파술이 필요한지에 따라 달라집니다. 정기적인 스케일링은 중증 잇몸병을 예방하여 결과적으로 <strong>잇몸치료비용</strong>을 줄이는 가장 좋은 방법입니다.</dd>
+
+                <dt onclick="toggleAnswer(this)">Q2: 잇몸치료를 받으면 치아가 시리거나 잇몸이 내려앉는다고 하는데, <strong>장단점</strong>이 있나요?</dt>
+                <dd>A2: 잇몸치료 후 치아가 시리거나 잇몸이 내려앉아 보이는 것은 잇몸치료의 <strong>단점</strong>이라기보다는, 치료 전 잇몸병으로 인해 부어있던 잇몸이 제자리를 찾으면서 생기는 자연스러운 현상입니다. 잇몸이 회복되면서 시린 증상은 점차 사라집니다. 잇몸치료의 <strong>장점</strong>은 잇몸병의 진행을 막아 치아를 보존할 수 있다는 점입니다.</dd>
+
+                <dt onclick="toggleAnswer(this)">Q3: <strong>잇몸치료 실비보험</strong> 적용 기준이 궁금합니다.</dt>
+                <dd>A3: <strong>실비보험</strong>은 대부분 비급여 치과 치료 항목을 보장하지 않습니다. 잇몸치료비용 중 <span class="highlight">건강보험이 적용되는 급여 항목의 본인 부담금</span>만 보장합니다. 따라서 <strong>잇몸뼈 이식술</strong>처럼 비급여 항목이 포함된 잇몸수술은 <strong>실비보험</strong> 혜택을 받기 어렵습니다. <strong>보험 가입</strong> 시기와 상품 약관을 확인해야 합니다.</dd>
+
+                <dt onclick="toggleAnswer(this)">Q4: <strong>잇몸치료 후기</strong>를 보면 통증이 심하다던데, 사실인가요?</dt>
+                <dd>A4: 잇몸치료는 통증을 동반할 수 있습니다. 특히 <strong>치주소파술</strong>이나 <strong>잇몸수술</strong>은 마취가 풀린 후 통증이 있을 수 있습니다. 하지만 최근에는 레이저 치료 등 통증을 줄여주는 방법도 있으며, 처방된 약을 복용하면 충분히 관리 가능합니다. <strong>치과 추천</strong>을 받을 때 통증 관리 노하우도 확인해 보세요.</dd>
+
+                <dt onclick="toggleAnswer(this)">Q5: 잇몸치료 <strong>평균 금액</strong>보다 <strong>저렴한 곳</strong>을 찾는 방법이 있나요?</dt>
+                <dd>A5: 잇몸치료의 <strong>가격</strong>은 치과의 규모나 위치에 따라 차이가 있을 수 있습니다. 하지만 <strong>저렴한 곳</strong>만을 찾기보다, 잇몸치료는 재발 방지가 중요하므로 숙련된 의료진과 충분한 장비를 갖춘 <strong>치과 추천</strong>을 받는 것이 중요합니다. 건강보험이 적용되는 항목은 전국적으로 <strong>비용</strong>이 거의 동일합니다.</dd>
+
+                <dt onclick="toggleAnswer(this)">Q6: 잇몸치료 <strong>견적</strong>을 미리 받아볼 수 있나요?</dt>
+                <dd>A6: 네, 치과를 방문하여 정확한 진단 후 <strong>견적</strong>을 받을 수 있습니다. 진단 X-ray 촬영(보험 적용 가능) 후 치주염 진행 정도에 따라 <strong>비용</strong>이 산출됩니다. 잇몸치료는 비급여 항목이 섞여 있을 수 있으니, <strong>견적</strong>에 포함된 항목을 꼼꼼히 확인하세요.</dd>
+            </dl>
+        </section>
+
+        <section id="related_keywords">
+            <h2>7. '잇몸치료비용'과 함께 많이 찾는 관련 키워드</h2>
+            <p><strong>잇몸치료비용</strong>에 관심을 갖는 분들이 추가로 검색하는 키워드 목록입니다. 잇몸 건강에 대한 종합적인 정보를 파악하는 데 도움이 됩니다.</p>
+            <ul>
+                <li><strong>잇몸치료 가격 평균:</strong> 일반적인 치료 <strong>평균 금액</strong>에 대한 관심</li>
+                <li><strong>잇몸치료 종류별 비용:</strong> 스케일링, 치주소파술, 잇몸수술 등 <strong>종류별 가격</strong> 비교</li>
+                <li><strong>치과 잇몸치료:</strong> 치과에서 진행하는 잇몸치료의 전체 과정</li>
+                <li><strong>실비보험 잇몸치료 적용:</strong> <strong>실비보험</strong>의 보장 범위 확인</li>
+                <li><strong>잇몸치료 잘하는 치과 추천:</strong> 숙련된 의료진을 찾기 위한 검색</li>
+                <li><strong>잇몸치료 후기:</strong> 실제 치료 경험자들의 <strong>후기</strong> 참고</li>
+                <li><strong>잇몸병 예방:</strong> 잇몸치료 이후 재발 방지 및 관리법</li>
+                <li><strong>잇몸영양제 추천:</strong> 잇몸 건강을 위한 보조제 정보</li>
+                <li><strong>잇몸뼈 이식술 비용:</strong> 심화 치료에 대한 <strong>견적</strong> 문의</li>
+                <li><strong>잇몸치료 장단점:</strong> 치료의 효과와 부작용에 대한 정보</li>
+                <li><strong>치과 비급여 항목:</strong> 보험 적용이 안되는 <strong>비용</strong> 목록</li>
+                <li><strong>잇몸치료 저렴한 곳:</strong> 합리적인 <strong>가격</strong>으로 치료받을 수 있는 <strong>치과</strong> 찾기</li>
+                <li><strong>2026년 치과 건강보험:</strong> 최신 보험 정책 변화에 대한 관심</li>
+                <li><strong>치주염 치료 방법:</strong> 잇몸병의 구체적인 치료 과정</li>
+                <li><strong>잇몸치료 통증:</strong> 치료 과정에서 발생하는 통증에 대한 정보</li>
+                <li><strong>잇몸치료 기간:</strong> 잇몸치료에 소요되는 시간 및 회복 기간</li>
+                <li><strong>치과 보험 추천:</strong> 잇몸치료를 위한 전문 <strong>치과 보험</strong> 가입 정보</li>
+                <li><strong>임플란트 잇몸치료:</strong> 임플란트 전후 잇몸 관리</li>
+                <li><strong>잇몸치료 견적:</strong> 치과에서 <strong>예상 비용</strong>을 받는 방법</li>
+            </ul>
+        </section>
+        
+        <div class="info-box" style="margin-top: 50px;">
+            <p style="text-align: center;"><strong>더 알아보기: 공신력 있는 외부 자료 (신뢰성 있는 출처)</strong></p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li><a href="https://www.nhis.or.kr/" target="_blank" style="color: #1a237e; font-weight: bold;"> 국민건강보험공단: 구강검진 및 치과치료 안내</a> - 건강보험 적용 기준 및 진료비 정보 확인 (공공기관)</li>
+                <li><a href="https://www.mohw.go.kr/react/index.jsp" target="_blank" style="color: #1a237e; font-weight: bold;"> 보건복지부: 비급여 진료비용 공개</a> - 비급여 항목의 전국 평균 가격 정보 (정부)</li>
+                <li><a href="http://www.kda.or.kr/" target="_blank" style="color: #1a237e; font-weight: bold;"> 대한치과의사협회: 치과 치료 정보</a> - 잇몸치료 방법 및 치과 관련 전문 정보 (전문가 단체)</li>
+                <li><a href="https://namu.wiki/w/%EC%B9%98%EC%A3%BC%EC%97%BC" target="_blank" style="color: #1a237e; font-weight: bold;"> 나무위키: 치주염</a> - 잇몸병의 정의, 원인, 치료법 상세 설명 (정보 백과)</li>
+                <li><a href="https://www.fss.or.kr/fss/index.jsp" target="_blank" style="color: #1a237e; font-weight: bold;"> 금융감독원: 보험 상품 정보</a> - 실비보험의 치과 치료 보장 범위 확인 (공공기관)</li>
+            </ul>
+        </div>
+
     </main>
-  </body>
-</html>
+
+
+    <script>
+        // 부드러운 스크롤 (내부 링크 클릭 시)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // FAQ 토글 기능
+        function toggleAnswer(dtElement) {
+            const ddElement = dtElement.nextElementSibling;
+            ddElement.style.display = (ddElement.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // 비용 예상 계산기 기능 (JavaScript)
+        function calculateCost() {
+            const treatmentType = document.getElementById('treatment_type').value;
+            const insuranceStatus = document.getElementById('insurance_status').value;
+            const toothCount = document.getElementById('tooth_count').value;
+            const resultArea = document.getElementById('result_area');
+
+            let costBase = 0;
+            let costPerToothGroup = 0;
+
+            // 1. 치료 종류별 기본 비용 설정 (임의의 2026년 예상 값)
+            if (treatmentType === 'scaling') {
+                costBase = 20000; // 스케일링 기본 비용 (급여 적용 기준)
+            } else if (treatmentType === 'curettage') {
+                costBase = 50000; // 치주소파술 기본 비용 (본인 부담금 기준)
+                costPerToothGroup = 10000; // 치아군당 추가 비용
+            } else if (treatmentType === 'surgery') {
+                costBase = 200000; // 잇몸수술 기본 비용 (비급여 포함 최소 예상)
+                costPerToothGroup = 50000; // 치아군당 추가 비용 (난이도에 따라 상승)
+            }
+
+            // 2. 치아 개수별 비용 가산
+            let totalCost = costBase;
+            if (treatmentType !== 'scaling') {
+                if (toothCount === '6') {
+                    totalCost += costPerToothGroup;
+                } else if (toothCount === '12') {
+                    totalCost += costPerToothGroup * 2;
+                } else if (toothCount === 'full_mouth') {
+                    totalCost += costPerToothGroup * 4;
+                }
+            }
+
+            // 3. 보험 적용 여부에 따른 최종 비용 조정 (비급여 항목은 비용이 크게 상승)
+            if (insuranceStatus === 'uncovered') {
+                totalCost = totalCost * 3; // 비급여 시 대략 3배 이상 상승 가정
+            }
+
+            // 4. 결과 출력
+            let resultMessage = '';
+            if (treatmentType === 'scaling' && insuranceStatus === 'covered') {
+                resultMessage = `<strong>[스케일링 예상 견적]</strong> 약 ${totalCost.toLocaleString()}원 내외입니다. (급여 1회 적용)`;
+            } else {
+                resultMessage = `<strong>[예상 총 치료비]</strong> 약 ${totalCost.toLocaleString()}원 내외입니다. (치료 난이도, 비급여 항목에 따라 변동될 수 있습니다.)`;
+            }
+
+            resultArea.innerHTML = resultMessage;
+            resultArea.style.display = 'block';
+        }
+    </script>
+
+  
